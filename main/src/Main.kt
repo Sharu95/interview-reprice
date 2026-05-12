@@ -15,6 +15,20 @@ fun naiveSolution(words: List<String>): Map<String, List<String>> = words.associ
     }
 }.filter { it.value.isNotEmpty() }
 
+
+/**
+ * Improved naive approach - group words by sorted characters, then fold into a map
+ * This ensures each anagram group appears only once
+ */
+fun improvedNaiveSolution(words: List<String>): Map<String, List<String>> = words
+    .groupBy { it.toCharArray().sorted().joinToString("") }
+    .filter { it.value.size > 1 }
+    .values
+    .fold(mutableMapOf()) { acc, group ->
+        acc[group.first()] = group.drop(1)
+        acc
+    }
+
 fun writeToFile(anagrams: Map<String, List<String>>, file: File) {
     val output = anagrams
         .map { "${it.key} ${it.value.joinToString(" ")}" }
@@ -25,13 +39,12 @@ fun writeToFile(anagrams: Map<String, List<String>>, file: File) {
 fun readFromFile(file: File) = file.readLines().filter(String::isNotEmpty)
 
 fun main() {
-    val inputFile = File("eventyr.txt")
-    val outputFile = File("anagrams.txt")
-    val answerFile = File("answers.txt") // Naive solution for verification
-
-    val words = readFromFile(inputFile)
+    val words = readFromFile(File("eventyr.txt"))
 
     /* Native solution*/
     val naiveSolutionAnagrams = naiveSolution(words)
-    writeToFile(naiveSolutionAnagrams, answerFile)
+    writeToFile(naiveSolutionAnagrams, File("naiveSolution.txt"))
+
+    val improvedNaiveSolutionAnagrams = improvedNaiveSolution(words)
+    writeToFile(improvedNaiveSolutionAnagrams, File("improvedNaiveSolution.txt"))
 }

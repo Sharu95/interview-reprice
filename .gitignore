@@ -1,4 +1,5 @@
 *.jar
 .idea
 anagrams.txt
-answers.txt
+naiveSolution.txt
+improvedNaiveSolution.txt
