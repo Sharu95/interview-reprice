@@ -23,4 +23,10 @@ The most straightforward approach is to loop each word, and check
 all other words if they are anagrams. The condition for checking an anagram 
 is to compare the sorted version of two words. If they are the same, we have an anagram.
 
+### Improved approach
+Instead of looping all the words everytime, it's possible to build a hashmap/map, where the
+keys are sorted words (grouped by sorted words) and the values represent the list of 
+anagrams (which is appended to). This means you can do the anagrams finding in 
+one pass through the word list. 
+
 
