@@ -1,5 +1,4 @@
 *.jar
+build/
 .idea
-anagrams.txt
-naiveSolution.txt
-improvedNaiveSolution.txt
+data/anagrams.txt
